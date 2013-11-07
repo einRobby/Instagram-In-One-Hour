@@ -21,24 +21,24 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="INSTAGRAM IN ONE HOUR" Style="{StaticResource PhoneTextNormalStyle}" Margin="0,0,12,0"/>
-            <TextBlock Text="edit picture" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="INSTAGRAM IN ONE HOUR" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock Text="edit picture" Margin="12,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" >
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Border BorderThickness="3" Margin="12,0" VerticalAlignment="Top" Height="456" Width="456">
+            <Border BorderThickness="3" Margin="12,0" VerticalAlignment="Top" Height="432" Width="432">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="{StaticResource PhoneButtonBasePressedForegroundColor}"/>
                 </Border.BorderBrush>
                 <Border.Background>
                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                 </Border.Background>
-                <Image x:Name="PreviewPicture" Stretch="UniformToFill" Width="450" Height="450"/>
+                <Image x:Name="PreviewPicture" Stretch="UniformToFill" Width="426" Height="426"/>
             </Border>
             <Button x:Name="AddPictureButton" Content="Add a picture" Margin="0" VerticalAlignment="Top" Padding="8,10,8,11" Click="AddPictureButton_Click" Grid.Row="1" />
         </Grid>
