@@ -4,11 +4,6 @@
   <App xmlns="" ProductID="{9eb09bd8-b832-4145-9789-26382ce5bd5d}" Title="Instagram in 1h" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="InstagramInOneHour author" Description="Sample description" Publisher="InstagramInOneHour" PublisherID="{a6801c86-ca41-4e49-8eda-e418c48c05bd}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
-      <Capability Name="ID_CAP_NETWORKING" />
-      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
-      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
-      <Capability Name="ID_CAP_SENSORS" />
-      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
       <Capability Name="ID_CAP_MEDIALIB_PHOTO" />
     </Capabilities>
     <Tasks>
