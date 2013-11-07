@@ -37,11 +37,29 @@ namespace InstagramInOneHour
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Get a dictionary of query string keys and values.
+            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;            
+
             // Every time we navigate to the MainPage we check if a filter has been selected on the FilterView page
             // If so, we apply this filter to the PreviewImage
             if (FilterSelectorView.SelectedFilter != null)
             {
                 await ApplyFilter(FilterSelectorView.SelectedFilter, PreviewPicture);
+            }
+
+            // Check whether the app has been started by the photo edit picker of the Windows Phone System
+            // More information about the photo edit picker here: http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh202966(v=vs.105).aspx
+            if (queryStrings.ContainsKey("FileId"))
+            {
+                // Retrieve the photo from the media library using the FileID passed to the app.
+                MediaLibrary library = new MediaLibrary();
+                Picture photoFromLibrary = library.GetPictureFromToken(queryStrings["FileId"]);
+
+                // Create a BitmapImage object and add set it as the PreviewImage
+                BitmapImage bitmapFromPhoto = new BitmapImage();
+                bitmapFromPhoto.SetSource(photoFromLibrary.GetImage());
+
+                SetPreviewImage(bitmapFromPhoto);
             }
         }
 
@@ -73,14 +91,20 @@ namespace InstagramInOneHour
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.SetSource(e.ChosenPhoto);
 
-                // Now we set our PreviewImage and pure image that we want to filter later to that BitmapImage
-                PreviewPicture.Source = bitmap;               
-                ImageToFilter = new WriteableBitmap(bitmap);
-
-                // After that we can hide the AddPictureButton and activate the Application Bar
-                AddPictureButton.Visibility = Visibility.Collapsed;
-                ApplicationBar.IsVisible = true;
+                // Set image as PreviewImage
+                SetPreviewImage(bitmap);
             }
+        }
+
+        private void SetPreviewImage(BitmapImage bitmap)
+        {
+            // Now we set our PreviewImage and pure image that we want to filter later to that BitmapImage
+            PreviewPicture.Source = bitmap;
+            ImageToFilter = new WriteableBitmap(bitmap);
+
+            // After that we can hide the AddPictureButton and activate the Application Bar
+            AddPictureButton.Visibility = Visibility.Collapsed;
+            ApplicationBar.IsVisible = true;
         }
 
         private async void AppBarSaveButton_Click(object sender, EventArgs e)
