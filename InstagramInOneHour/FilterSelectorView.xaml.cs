@@ -41,9 +41,14 @@ namespace InstagramInOneHour
             EditingSession editingSession = new EditingSession(MainPage.ImageToFilter.AsBitmap());
 
             // Add the filter we want to offer to our users to the list
+            // You can find an overview of mor filters here: http://developer.nokia.com/Resources/Library/Lumia/#!nokia-imaging-sdk.html
             filterList = new List<ImageFilter>();
             filterList.Add(new ImageFilter("Cartoon", FilterFactory.CreateCartoonFilter(true)));
             filterList.Add(new ImageFilter("Antique", FilterFactory.CreateAntiqueFilter()));
+            filterList.Add(new ImageFilter("Color Boost", FilterFactory.CreateColorBoostFilter(2)));
+            filterList.Add(new ImageFilter("Gray Scale", FilterFactory.CreateGrayscaleFilter()));
+            filterList.Add(new ImageFilter("Negative", FilterFactory.CreateNegativeFilter()));
+            filterList.Add(new ImageFilter("Sktech", FilterFactory.CreateSketchFilter(SketchMode.Color)));
             filterList.Add(new ImageFilter("Mirror", FilterFactory.CreateMirrorFilter()));
 
             // Here we add a new PivotItem for every filter we want to use
