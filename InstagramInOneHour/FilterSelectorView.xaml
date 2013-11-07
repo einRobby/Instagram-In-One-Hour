@@ -14,7 +14,10 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/background.png"/>
+        </Grid.Background>
         <!--Pivot Control-->
         <phone:Pivot x:Name="FilterPivot" Title="INSTAGRAM IN ONE HOUR">
 
@@ -23,7 +26,7 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False" Mode="Default" >
-            <shell:ApplicationBarIconButton x:Name="ApplyFilterButton" Text="Apply" IconUri="/Assets/AppBar/check.png" Click="ApplyFilterButton_Click"  />            
+            <shell:ApplicationBarIconButton x:Name="ApplyFilterButton" Text="Apply" IconUri="/Assets/AppBar/check.png" Click="ApplyFilterButton_Click"  />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

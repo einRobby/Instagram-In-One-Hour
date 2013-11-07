@@ -14,7 +14,10 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/background.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -38,7 +41,10 @@
                 <Border.Background>
                     <SolidColorBrush Color="{StaticResource PhoneChromeColor}"/>
                 </Border.Background>
-                <Image x:Name="PreviewPicture" Stretch="UniformToFill" Width="426" Height="426"/>
+                <Grid>
+                    <Image x:Name="Logo" Source="/Assets/Tiles/FlipCycleTileLarge.png" />
+                    <Image x:Name="PreviewPicture" Stretch="UniformToFill" Width="426" Height="426"/>
+                </Grid>
             </Border>
             <Button x:Name="AddPictureButton" Content="Add a picture" Margin="0" VerticalAlignment="Top" Padding="8,10,8,11" Click="AddPictureButton_Click" Grid.Row="1" />
         </Grid>
