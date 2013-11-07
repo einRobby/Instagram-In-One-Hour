@@ -11,6 +11,7 @@ using Nokia.Graphics.Imaging;
 using Nokia.InteropServices.WindowsRuntime;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Media;
 
 namespace InstagramInOneHour
 {
@@ -57,6 +58,7 @@ namespace InstagramInOneHour
             {
                 // Create a new Image that we can add to each PivotItem later as a preview of the filter
                 Image pivotItemImage = new Image();
+                pivotItemImage.Stretch = Stretch.UniformToFill;
                 pivotItemImage.Width = 400;
                 pivotItemImage.Height = 400;
 
