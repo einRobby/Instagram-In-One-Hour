@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{9eb09bd8-b832-4145-9789-26382ce5bd5d}" Title="InstagramInOneHour" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="InstagramInOneHour author" Description="Sample description" Publisher="InstagramInOneHour" PublisherID="{a6801c86-ca41-4e49-8eda-e418c48c05bd}">
+  <App xmlns="" ProductID="{9eb09bd8-b832-4145-9789-26382ce5bd5d}" Title="Instagram in 1h" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="InstagramInOneHour author" Description="Sample description" Publisher="InstagramInOneHour" PublisherID="{a6801c86-ca41-4e49-8eda-e418c48c05bd}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -20,25 +20,26 @@
           <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
-          <Title>InstagramInOneHour</Title>
+          <Title>Instagram in 1h</Title>
           <BackContent>
           </BackContent>
           <BackBackgroundImageURI>
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileLarge.png</LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
     <Extensions>
       <!-- Extension for extending the photo edit picker for Windows Phone 8 -->
-      <Extension ExtensionName="Photos_Extra_Image_Editor"
-           ConsumerID="{5B04B775-356B-4AA0-AAF8-6491FFEA5632}"
-           TaskID="_default" />      
+      <Extension ExtensionName="Photos_Extra_Image_Editor" ConsumerID="{5B04B775-356B-4AA0-AAF8-6491FFEA5632}" TaskID="_default" />
     </Extensions>
     <ScreenResolutions>
       <ScreenResolution Name="ID_RESOLUTION_WVGA" />
