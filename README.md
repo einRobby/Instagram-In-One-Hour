@@ -8,3 +8,4 @@ Nokia Imaging SDK
 -----------------
 This application uses the great Nokia Imaging SDK and wants to show how easy to use it is and what awesome effects one can perform with a minimum efford.
 More Information about the Nokia Imaging SDK can be found [here] (https://developer.nokia.com/Develop/Windows_Phone/nokia_apis/imaging.xhtml "Nokia Imaging SDK").
+Please do also read the [License Agreement] (https://developer.nokia.com/General/Nokia_Imaging_SDK_License_Agreement.xhtml).
