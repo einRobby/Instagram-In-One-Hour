@@ -43,7 +43,7 @@
                 </Border.Background>
                 <Grid>
                     <Image x:Name="Logo" Source="/Assets/Tiles/FlipCycleTileLarge.png" />
-                    <Image x:Name="PreviewPicture" Stretch="UniformToFill" Width="426" Height="426"/>
+                    <Image x:Name="PreviewPicture" Width="426" Height="426" Stretch="UniformToFill"/>
                 </Grid>
             </Border>
             <Button x:Name="AddPictureButton" Content="Add a picture" Margin="0" VerticalAlignment="Top" Padding="8,10,8,11" Click="AddPictureButton_Click" Grid.Row="1" />

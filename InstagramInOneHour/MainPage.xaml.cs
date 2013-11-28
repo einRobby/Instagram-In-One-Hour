@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Media.PhoneExtensions;
 using Windows.Storage.Streams;
+using System.IO;
 
 namespace InstagramInOneHour
 {
@@ -26,50 +27,60 @@ namespace InstagramInOneHour
         // It is staic which makes it accessible from everywhere
         public static WriteableBitmap ImageToFilter;
 
-        // To edit a picture with the Nokia Imaging SDK we need an EditingSession which we define here
-        private EditingSession editingSession;
+        private bool imageAlreadyLoaded;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
+            imageAlreadyLoaded = false;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // Get a dictionary of query string keys and values.
-            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;            
-
-            // Every time we navigate to the MainPage we check if a filter has been selected on the FilterView page
-            // If so, we apply this filter to the PreviewImage
-            if (FilterSelectorView.SelectedFilter != null)
-            {
-                await ApplyFilter(FilterSelectorView.SelectedFilter, PreviewPicture);
-            }
+            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;
 
             // Check whether the app has been started by the photo edit picker of the Windows Phone System
             // More information about the photo edit picker here: http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh202966(v=vs.105).aspx
-            if (queryStrings.ContainsKey("FileId"))
+            if (queryStrings.ContainsKey("FileId") && imageAlreadyLoaded == false)
             {
+                imageAlreadyLoaded = true;
+
                 // Retrieve the photo from the media library using the FileID passed to the app.
                 MediaLibrary library = new MediaLibrary();
                 Picture photoFromLibrary = library.GetPictureFromToken(queryStrings["FileId"]);
 
                 // Create a BitmapImage object and add set it as the PreviewImage
                 BitmapImage bitmapFromPhoto = new BitmapImage();
-                bitmapFromPhoto.SetSource(photoFromLibrary.GetImage());
+                bitmapFromPhoto.SetSource(photoFromLibrary.GetPreviewImage());
 
                 SetPreviewImage(bitmapFromPhoto);
             }
+
+            // Every time we navigate to the MainPage we check if a filter has been selected on the FilterView page
+            // If so, we apply this filter to the PreviewImage
+            if (FilterSelectorView.SelectedFilter != null)
+            {
+                await ApplyFilter(FilterSelectorView.SelectedFilter, PreviewPicture);
+            }            
         }
 
         private async Task ApplyFilter(ImageFilter imageFilter, Image image)
         {
+            FilterEffect effect = new FilterEffect(new BitmapImageSource(ImageToFilter.AsBitmap()));
+            effect.Filters = new IFilter[] { imageFilter.Filter };
+
+            WriteableBitmap temporaryImage = new WriteableBitmap(MainPage.ImageToFilter);
+            WriteableBitmapRenderer renderer = new WriteableBitmapRenderer(effect, temporaryImage);
+            await renderer.RenderAsync();
+
+            image.Source = temporaryImage;
             // Here we create a new EditingSession based on our selected image and add the selected filter to it
             // After the picture gets rendered to our delivered image
-            editingSession = new EditingSession(ImageToFilter.AsBitmap());
-            editingSession.AddFilter(imageFilter.Filter);
-            await editingSession.RenderToImageAsync(image, OutputOption.PreserveAspectRatio);
+            //editingSession = new EditingSession(ImageToFilter.AsBitmap());
+            //editingSession.AddFilter(imageFilter.Filter);
+            //await editingSession.RenderToImageAsync(image, OutputOption.PreserveAspectRatio);
         }
 
         private void AddPictureButton_Click(object sender, RoutedEventArgs e)
@@ -107,35 +118,40 @@ namespace InstagramInOneHour
             ApplicationBar.IsVisible = true;
         }
 
-        private async void AppBarSaveButton_Click(object sender, EventArgs e)
+        private void AppBarSaveButton_Click(object sender, EventArgs e)
         {
-            // Call the save Image method and inform the user
-            await SaveImage();
+            // Call the SaveImage() method and inform the user
+            SaveImage();
             MessageBox.Show("The image has been successfully saved to the media library", "Image saved", MessageBoxButton.OK);
         }
 
-        private async Task<string> SaveImage()
+        private string SaveImage()
         {
             // Create a unique file name
             string fileName = "FilteredImage - " + DateTime.Now.ToString();
 
-            // To save an image to the media library we need it as a steam
-            IBuffer jpegOut = await editingSession.RenderToJpegAsync();
+            // Create a stream that we can save to the local Media Library
+            using (MemoryStream stream = new MemoryStream())
+            {
+                WriteableBitmap bitmap = new WriteableBitmap(PreviewPicture, null);
+                bitmap.SaveJpeg(stream, bitmap.PixelWidth, bitmap.PixelHeight, 0, 100);
+                stream.Seek(0, SeekOrigin.Begin);
 
-            // After initializing a MediaLibrary object we can access the library to save the picture
-            MediaLibrary library = new MediaLibrary();
-            Picture picture = library.SavePicture(fileName, jpegOut.AsStream());
+                // Save image
+                MediaLibrary library = new MediaLibrary();
+                Picture picture = library.SavePicture(fileName, stream);
 
-            // Return the path to the saved picture in case that we need it later
-            return picture.GetPath();
+                // Return the path to the saved picture in case that we need it later
+                return picture.GetPath();
+            }           
         }
 
-        private async void AppBarShareButton_Click(object sender, EventArgs e)
+        private void AppBarShareButton_Click(object sender, EventArgs e)
         {
             // To share an image through the ShareMediaTask it need to be saved locally
             // Here we need the path of the saved image to deliver it to the MediaShareTask
             ShareMediaTask shareMediaTask = new ShareMediaTask();
-            shareMediaTask.FilePath = await SaveImage();
+            shareMediaTask.FilePath = SaveImage();
             shareMediaTask.Show();
         }
 

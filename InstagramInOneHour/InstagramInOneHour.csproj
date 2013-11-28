@@ -19,7 +19,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>InstagramInOneHour_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>InstagramInOneHour_Release.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>InstagramInOneHour.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
@@ -123,9 +123,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Help\Nokia Imaging SDK.chm" />
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
@@ -164,8 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
-    <Reference Include="Nokia.Graphics.Imaging.Managed">
-      <HintPath>..\packages\NokiaImagingSDK.0.9.3\lib\wp8\Nokia.Graphics.Imaging.Managed.dll</HintPath>
+    <Reference Include="Nokia.Graphics.Imaging.Managed, Version=1.0.272.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NokiaImagingSDK.1.0.272.0\lib\wp8\Nokia.Graphics.Imaging.Managed.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
@@ -178,5 +178,5 @@
   </Target>
   -->
   <ProjectExtensions />
-  <Import Project="..\packages\NokiaImagingSDK.0.9.3\build\wp8\NokiaImagingSDK.targets" Condition="Exists('..\packages\NokiaImagingSDK.0.9.3\build\wp8\NokiaImagingSDK.targets')" />
+  <Import Project="..\packages\NokiaImagingSDK.1.0.272.0\build\wp8\NokiaImagingSDK.targets" Condition="Exists('..\packages\NokiaImagingSDK.1.0.272.0\build\wp8\NokiaImagingSDK.targets')" />
 </Project>
